@@ -1,0 +1,51 @@
+
+.canvas {
+	float:left;
+	background:#D1E8F0;
+	height:100%;
+	content:" ";
+}
+
+.canvas_panels {
+	position:relative;
+	display:inline-block;
+	top:50%;
+	float:left;
+	margin-left:10px;
+	margin-right:10px;
+	height:90%;
+	min-width:200px;
+	width:25%;
+	border:solid 1px black;
+	box-shadow:1px 1px 2px 0px black;
+	content:" ";
+	overflow:hidden;
+	display: -webkit-flex;
+}
+
+h3.canvas_panel_heading {	
+	position:absolute;
+	width:100%;
+	margin:0px;
+	font-size:16px;
+	padding:3px;
+	text-align:center;
+	border-bottom:1px solid black;
+}
+
+.canvas_panel_content {
+	margin-top:24px;
+	color:blue;
+	font-size:50px;
+	-webkit-flex: 1;
+	flex:1;
+	overflow-y:auto;
+	content:" ";
+}
+
+.canvas_dropzone {
+	box-shadow:0px 0px 5px 2px orange;
+}
+.canvas_dropaccept {
+	box-shadow:0px 0px 5px 2px green;
+}

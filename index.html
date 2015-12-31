@@ -1,9 +1,11 @@
+<!DOCTYPE html>
 <html>
 	<head>
 		<link href="css/normalize.css" rel="stylesheet">
 		<link href="css/layout.css" rel="stylesheet">
 		<link href="lib/jquery-ui/jquery-ui.css" rel="stylesheet">
 		<link href="css/style.css" rel="stylesheet">
+		<link href="css/leftpanel.css" rel="stylesheet">
 		<link href="css/canvas.css" rel="stylesheet">
 		<link href="css/jquery-ui-extns.css" rel="stylesheet">
 		<script src="lib/jquery/jquery.js"></script>
@@ -27,9 +29,9 @@
 									<div>
 										<h6>Draft Tools</h6>
 										<div>
-											<span class="">Connector Mapping</span><br>
-											<span class="">Step</span><br>
-											<span class="">Object Mapping</span><br>
+											<span class="draft_tool draft_cm draft_tool_enable">Connector Mapping</span><br>
+											<span class="draft_tool draft_st draft_tool_disable">Step</span><br>
+											<span class="draft_tool draft_om draft_tool_enable">Object Mapping</span><br>
 										</div>
 									</div>
 								</div>
@@ -83,9 +85,18 @@
 						
 					</div>
 					<div class="canvas">
-						<div id="connector_mappings" class="canvas_panels"></div>
-						<div id="steps" class="canvas_panels"></div>
-						<div id="object_mappings" class="canvas_panels"></div>
+						<div id="connector_mappings" class="canvas_panels">
+							<h3 class="canvas_panel_heading">Connector Mappings</h3>
+							<div class="canvas_panel_content"></div>
+						</div>
+						<div id="steps" class="canvas_panels">
+							<h3 class="canvas_panel_heading">Steps</h3>
+							<div class="canvas_panel_content"></div>
+						</div>
+						<div id="object_mappings" class="canvas_panels">
+							<h3 class="canvas_panel_heading">Object Mappings</h3>
+							<div class="canvas_panel_content"></div>
+						</div>
 					</div>
 					<div class="right_pane"></div>
 				</div>
@@ -97,24 +108,9 @@
 		$("#draft  > div").accordion({header:"h6",collapsible:true});
 		$("#create  > div").accordion({header:"h6",collapsible:true});
 		$("#tabs").tabs({heightStyle:"fill"});
-		$(".sobject").draggable({
-			cursor:"pointer",
-			appendTo:"body",
-			scope:"t",
-			helper:function(){
-				var elem = $("<div></div>");
-				elem.addClass("sobject-dragged");
-				elem.html($(this).html());
-				return elem;
-			}
-		});
 		$(window).resize(responsiveSize);
 		responsiveSize();
-		$(".canvas").droppable({
-			 accept:".sobject",
-			 scope:"t",
-			 drop:function(elem){$(this).html("added" + $(elem.toElement).html())}
-		});
+		dragdrop.init($);
 	});
 
 	function responsiveSize(){
@@ -122,6 +118,13 @@
 		$(".canvas").css("width",$(document).width() - $(".left_pane").outerWidth());
 		$(".main").css("height",$(document).height()-100);
 		$("#tabs").tabs("refresh");
+		var sidemargin = ($(".canvas").width() - ($(".canvas_panels").width()+4)*3)/6;
+		$(".canvas_panels").css({
+			"margin-top":-($(".canvas_panels").height()/2),
+			"margin-left":sidemargin,
+			"margin-right":sidemargin
+		});
 	}
 	</script>
+	<script src="js/dragdrop.js"></script>
 </html>
