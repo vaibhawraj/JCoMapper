@@ -1,0 +1,127 @@
+<html>
+	<head>
+		<link href="css/normalize.css" rel="stylesheet">
+		<link href="css/layout.css" rel="stylesheet">
+		<link href="lib/jquery-ui/jquery-ui.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+		<link href="css/canvas.css" rel="stylesheet">
+		<link href="css/jquery-ui-extns.css" rel="stylesheet">
+		<script src="lib/jquery/jquery.js"></script>
+		<script src="lib/jquery-ui/jquery-ui.js"></script>
+	</head>
+	<body>
+		<div class="container">
+				<div class="header">
+					<h1 class="title">JCo Mapper</h1>
+				</div>
+				<div class="main">
+					<div class="left_pane">
+						<div id="tabs" style="position:relative">
+							<ul>
+								<li><a href="#palette"><span>Palette</span></a></li>
+								<li><a href="#resources"><span>Resources</span></a></li>
+								<li><a href="#explorer"><span>Explorer</span></a></li>
+							</ul>
+							<div id="palette">
+								<div id="draft">
+									<div>
+										<h6>Draft Tools</h6>
+										<div>
+											<span class="">Connector Mapping</span><br>
+											<span class="">Step</span><br>
+											<span class="">Object Mapping</span><br>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div id="resources">
+								<div id="create">
+									<div>
+										<h6>Create New Resource</h6>
+										<div>
+											<span class="">Salesforce Object</span><br>
+											<span class="">SAP Bapi</span><br>
+											<span class="">Processor</span><br>
+											<span class="">Param Handler</span><br>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div id="explorer">
+								<div id="tools">
+									<div>
+										<h6>Salesforce Object</h6>
+										<div>
+											<span class="sobject">Account</span><br>
+											<span class="sobject">Order</span>
+										</div>
+									</div>
+									<div>
+										<h6>SAP Bapi</h6>
+										<div>
+											<span class="sobject">ZCRM_R3_OC</span><br>
+											<span class="sobject">ZR3_CRM_OC</span>
+										</div>
+									</div>				
+									<div>
+										<h6>Processor</h6>
+										<div>
+											<span class="sobject">SAPProcessor</span><br>
+											<span class="sobject">SFDCProcessor</span>
+										</div>
+									</div>				
+									<div>
+										<h6>Param Handler</h6>
+										<div>
+											<span class="sobject">Param1</span><br>
+											<span class="sobject">Param2</span>
+										</div>
+									</div>				
+								</div>
+							</div>
+						</div>
+						
+					</div>
+					<div class="canvas">
+						<div id="connector_mappings" class="canvas_panels"></div>
+						<div id="steps" class="canvas_panels"></div>
+						<div id="object_mappings" class="canvas_panels"></div>
+					</div>
+					<div class="right_pane"></div>
+				</div>
+		</div>
+	</body>
+	<script>
+	$(document).ready(function(){
+		$("#explorer  >div  > div").accordion({header:"h6",collapsible:true});
+		$("#draft  > div").accordion({header:"h6",collapsible:true});
+		$("#create  > div").accordion({header:"h6",collapsible:true});
+		$("#tabs").tabs({heightStyle:"fill"});
+		$(".sobject").draggable({
+			cursor:"pointer",
+			appendTo:"body",
+			scope:"t",
+			helper:function(){
+				var elem = $("<div></div>");
+				elem.addClass("sobject-dragged");
+				elem.html($(this).html());
+				return elem;
+			}
+		});
+		$(window).resize(responsiveSize);
+		responsiveSize();
+		$(".canvas").droppable({
+			 accept:".sobject",
+			 scope:"t",
+			 drop:function(elem){$(this).html("added" + $(elem.toElement).html())}
+		});
+	});
+
+	function responsiveSize(){
+		$(".canvas").css("margin-left",$(".left_pane").outerWidth());
+		$(".canvas").css("width",$(document).width() - $(".left_pane").outerWidth());
+		$(".main").css("height",$(document).height()-100);
+		$("#tabs").tabs("refresh");
+	}
+	</script>
+</html>
