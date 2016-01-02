@@ -1,0 +1,983 @@
+<ConnectorConfiguration>
+	<ConnectorMapping name="COLLECTION_UPDATE_IN_SFDC"
+		description="To create/update Collection in Salesforce.com from SAP"
+		sequence="1" paramHandler="CollectionParamHandler">
+		<Step name="Fetch Business Area Information from Salesforce" number="1"
+			input="parameter" output="record">
+			<ObjectMapping name="EXPORT_BUSINESS_AREA_FROM_SFDC"
+				description="Business Area Information" objectReference="Business_Area__c" action="export"
+				subAction="loadRecord" processor="sfdcProcessor" alias="Business_Area"
+				criteria="" attribute1="">
+				<Node name="Business_Area__c" type="TABLE">
+					<Field sourceName="Business_Area_ID__c" destinationName="BUSINESS_AREA" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						referenceField="" isUnique="" formula="" isExternalId="false" />
+					
+				</Node>
+			</ObjectMapping>
+		</Step>
+		<Step name="Fetch Collection Data from SAP" number="2" input="record"
+			output="record">
+			<ObjectMapping name="FETCH_COLLECTION_SAP"
+				description="Collection Information" objectReference="ZSD_SF_COLLECTION_DETAILS1"
+				action="export" subAction="loadRecord" processor="SAPCustomProcessor"
+				alias="Collection" criteria="" attribute1="">
+				<Node name="INPUT" type="INPUT" subType="PARAMETER" count="1">
+					<Field sourceName="BUSINESS_AREA" destinationName="BUSINESS_AREA"
+						dataType="string" format="" mandatory="Yes" defaultValue=""
+						referenceObject="" formula="" isExternalId="false" />
+					<Field sourceName="START_DATE" destinationName="START_DATE"
+						dataType="string" format="" mandatory="Yes" defaultValue=""
+						referenceObject="" formula="" isExternalId="false" />
+					<Field sourceName="END_DATE" destinationName="END_DATE"
+						dataType="string" format="" mandatory="Yes" defaultValue=""
+						referenceObject="" formula="" isExternalId="false" />
+					<Field sourceName="YEAR" destinationName="YEAR"
+						dataType="string" format="" mandatory="Yes" defaultValue=""
+						referenceObject="" formula="" isExternalId="false" />
+				</Node>
+				<Node name="I_STRUCTURE" type="TABLES" subType="STRUCTURE" count="1">
+					
+					<Field sourceName="FISCAL_YEAR" destinationName="FISCALYEAR" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="ITEM" destinationName="ITEM" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="BELNR" destinationName="BELNR" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					<Field sourceName="BUDAT" destinationName="BUDAT" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+
+					<Field sourceName="CPUDT" destinationName="CPUDT" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					<Field sourceName="GSBER" destinationName="GSBER" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					<Field sourceName="KUNNR" destinationName="KUNNR" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+
+					<Field sourceName="NAME1" destinationName="NAME1" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					<Field sourceName="PRCTR" destinationName="PRCTR" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					<Field sourceName="PRTXT" destinationName="PRTXT" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+
+					<Field sourceName="XBLNR" destinationName="XBLNR" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					<Field sourceName="DMBTR" destinationName="DMBTR" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					<Field sourceName="DMBTRBR" destinationName="DMBTRBR" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+
+					<Field sourceName="TOTAL" destinationName="TOTAL" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="SPART" destinationName="SPART" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="VKBUR" destinationName="VKBUR" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+				</Node>
+				
+				
+			</ObjectMapping>
+		</Step>
+		<Step name="Update Collection Info in Salesforce.com"
+			number="3" input="record" output="record" returnOriginal="true" trackStatus="true">
+			<ObjectMapping name="COLLECTION_SFDC_TO_UPDATE"
+				description="" objectReference="Collections__c" action="upsert" subAction="loadRecord"
+				processor="sfdcProcessor" alias="Collections" criteria="" attribute1="">
+			<Node name="I_STRUCTURE" type="TABLES" subType="STRUCTURE" count="1">
+					<Field sourceName="FISCALYEAR" destinationName="Fiscal_Year__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="ITEM" destinationName="Item__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					<Field sourceName="BELNR" destinationName="Name" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					<Field sourceName="BUDAT" destinationName="Posting_Date__c" dataType="date"
+						format="EEE MMM dd HH:mm:ss z yyyy" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+
+					<Field sourceName="CPUDT" destinationName="Entry_Date__c" dataType="date"
+						format="EEE MMM dd HH:mm:ss z yyyy" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+
+					<Field sourceName="GSBER" destinationName="Business_Area_Code__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+
+					<Field sourceName="GSBER" destinationName="Business_Area__c" dataType="lookup"
+						format="" mandatory="Yes" defaultValue="" referenceObject="Business_Area__c" referenceField="Business_Area_ID__c"
+						formula="" isExternalId="false" />
+
+
+					<Field sourceName="KUNNR" destinationName="Account__c" dataType="lookup"
+						format="" mandatory="Yes" defaultValue="" referenceObject="Account" referenceField="SAP_Account_No__c"
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="KUNNR" destinationName="Customer_No__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject="" referenceField=""
+						formula="" isExternalId="false" />
+
+					<Field sourceName="NAME1" destinationName="SAP_Cust_Name__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					<Field sourceName="PRCTR" destinationName="Profit_Cntr__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					<Field sourceName="PRTXT" destinationName="Prft_Cntr_Name__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+
+					<Field sourceName="XBLNR" destinationName="Ref_Doc_No__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+						 
+					<Field sourceName="DMBTR" destinationName="Amount__c" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					<Field sourceName="DMBTRBR" destinationName="Amount_Direct_Entry__c" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+
+					<Field sourceName="TOTAL" destinationName="Total_Amount__c" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					<!-- what is the separator we should use? -->
+					
+					<Field sourceName="MATCHINGLOB" destinationName="LOB__c"
+						dataType="string" format="" mandatory="Yes"
+						defaultValue="" referenceObject="" referenceField="" isUnique=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="Unique__c" destinationName="Unique__c"
+						dataType="formula" format="BELNR_FISCALYEAR_ITEM" mandatory="Yes"
+						defaultValue="" referenceObject="" referenceField="" isUnique=""
+						formula="" isExternalId="true" />
+					
+				</Node>
+				
+			</ObjectMapping>
+		</Step>
+		<!-- 
+		<Step name="Convert the data into XML" number="4" input="record"
+			output="parameter" trackStatus="true">
+			<ObjectMapping name="COLLECTION_AS_XML"
+				description="The data has to be converted as XML" objectReference=""
+				action="export" subAction="loadParameter" processor="xmlProcessor"
+				alias="CollectionXML" criteria="" attribute1="">
+			</ObjectMapping>
+		</Step>
+		 -->
+	</ConnectorMapping>
+	<ConnectorMapping name="PENDING_ORDER_UPDATE_IN_SFDC"
+		description="To create/update Pending Orders in Salesforce.com from SAP"
+		sequence="1" paramHandler="OrderParamHandler">
+		<Step name="Fetch Division/Sales Office Information from Salesforce" number="1"
+			input="parameter" output="record">
+			<ObjectMapping name="EXPORT_SO_FROM_SFDC"
+				description="Sales Office Information" objectReference="SalesOffice__c" action="export"
+				subAction="loadRecord" processor="SFDCComboProcessor" alias="Sales_Office"
+				criteria="" attribute1="">
+				<Node name="Sales_Office" type="TABLE">
+					<Field sourceName="Salesoffice_ID__c" destinationName="SALESOFFICE" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						referenceField="" isUnique="" formula="" isExternalId="false" />
+					
+				</Node>
+			</ObjectMapping>
+			<ObjectMapping name="EXPORT_DIV_FROM_SFDC"
+				description="Division Information" objectReference="Division__c" action="export"
+				subAction="loadRecord" processor="SFDCComboProcessor" alias="Division"
+				criteria="" attribute1="">
+				<Node name="Division" type="TABLE">
+					<Field sourceName="Division_ID__c" destinationName="DIVISION" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						referenceField="" isUnique="" formula="" isExternalId="false" />
+					
+				</Node>
+			</ObjectMapping>
+		</Step>
+		
+		<Step name="Fetch Pending Order Data from SAP" number="2" input="record"
+			output="record">
+			<ObjectMapping name="FETCH_ORDER_SAP"
+				description="Pending Order Information" objectReference="ZSD_SF_PENDING_ORDER_FM1"
+				action="export" subAction="loadRecord" processor="SAPCustomProcessor"
+				alias="Order" criteria="" attribute1="">
+				<Node name="INPUT" type="INPUT" subType="PARAMETER" count="1">
+					<Field sourceName="SALESOFFICE" destinationName="SALESOFFICE"
+						dataType="string" format="" mandatory="Yes" defaultValue=""
+						referenceObject="" formula="" isExternalId="false" />
+					<Field sourceName="DIVISION" destinationName="DIVISION"
+						dataType="string" format="" mandatory="Yes" defaultValue=""
+						referenceObject="" formula="" isExternalId="false" />
+					<Field sourceName="DATE_LOW" destinationName="DATE_LOW"
+						dataType="string" format="" mandatory="Yes" defaultValue=""
+						referenceObject="" formula="" isExternalId="false" />
+					<Field sourceName="DATE_HIGH" destinationName="DATE_HIGH"
+						dataType="string" format="" mandatory="Yes" defaultValue=""
+						referenceObject="" formula="" isExternalId="false" />
+					
+				</Node>
+				<Node name="I_STRUCTURE" type="TABLES" subType="STRUCTURE" count="1">
+					
+					<Field sourceName="ORTYP" destinationName="ORTYP" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="VKBUR" destinationName="VKBUR" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="VBELN" destinationName="VBELN" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					<Field sourceName="ITEM" destinationName="ITEM" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+
+					<Field sourceName="BEDAT" destinationName="BEDAT" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					<Field sourceName="NAME1" destinationName="NAME1" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					<Field sourceName="CUS_NAME" destinationName="CUS_NAME" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+
+					<Field sourceName="KUNNR" destinationName="KUNNR" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					<Field sourceName="MATNR" destinationName="MATNR" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					<Field sourceName="MAKTX" destinationName="MAKTX" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+
+					<Field sourceName="THICK" destinationName="THICK" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					<Field sourceName="FINISH" destinationName="FINISH" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					<Field sourceName="DESIGN" destinationName="DESIGN" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+
+					<Field sourceName="SIZE" destinationName="SIZE" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="NAME_FY" destinationName="NAME_FY" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="NAME_CUS" destinationName="NAME_CUS" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="QUANTITY" destinationName="QUANTITY" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+						
+					<Field sourceName="FACAL" destinationName="FACAL" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+							
+					<Field sourceName="NACAL" destinationName="NACAL" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+								
+					<Field sourceName="ORD_QTY" destinationName="ORD_QTY" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+											
+					<Field sourceName="NET_VALUE" destinationName="NET_VALUE" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+														
+					<Field sourceName="UNIT_PRICE" destinationName="UNIT_PRICE" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+						
+					<Field sourceName="SPART" destinationName="SPART" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+				</Node>
+				
+				
+			</ObjectMapping>
+		</Step>
+		 
+		<Step name="Update Deal Info in Salesforce.com"
+			number="3" input="record" output="record" returnOriginal="true" trackStatus="true" >
+			<ObjectMapping name="ORDER_SFDC_TO_UPDATE"
+				description="" objectReference="Deal__c" action="upsert" subAction="loadRecord"
+				processor="sfdcProcessor" alias="Deals" criteria="" attribute1="" filterByUniqueField="VBELN">
+			<Node name="I_STRUCTURE" type="TABLES" subType="STRUCTURE" count="1">
+					<Field sourceName="" destinationName="RecordTypeId" dataType="string"
+						format="" mandatory="Yes" defaultValue="012d0000000h7T8" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="ORTYP" destinationName="Order_Type__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					 <Field sourceName="VKBUR" destinationName="SalesOffice__c" dataType="lookup"
+						format="" mandatory="Yes" defaultValue="" referenceObject="SalesOffice__c" referenceField="Salesoffice_ID__c"
+						formula="" isExternalId="false" />
+						
+					<Field sourceName="VKBUR" destinationName="SalesOffice_text__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject="" referenceField=""
+						formula="" isExternalId="false" />
+						 
+					<Field sourceName="VBELN" destinationName="Unique__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="true" />
+						
+					<Field sourceName="VBELN" destinationName="DealName__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+						
+					<!-- <Field sourceName="VBELN" destinationName="Name" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+						 -->
+
+					<Field sourceName="BEDAT" destinationName="SO_Date__c" dataType="date"
+						format="EEE MMM dd HH:mm:ss z yyyy" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<!-- Not in mapping file, required in SFDC -->
+					<Field sourceName="BEDAT" destinationName="Close_Date__c" dataType="date"
+						format="EEE MMM dd HH:mm:ss z yyyy" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+
+					<Field sourceName="NAME1" destinationName="Branch_Name__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+
+					<Field sourceName="KUNNR" destinationName="Customer_Code__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject="" referenceField=""
+						formula="" isExternalId="false" />
+
+
+					<Field sourceName="KUNNR" destinationName="Customer_Name__c" dataType="lookup"
+						format="" mandatory="Yes" defaultValue="" referenceObject="Account" referenceField="SAP_Account_No__c"
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="NAME_FY" destinationName="SO_Name_Order_Date_Delivery_Date__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject="" referenceField=""
+						formula="" isExternalId="false" />
+
+					<Field sourceName="NAME_CUS" destinationName="Cust_Name__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="MATCHINGLOB" destinationName="LOB__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+				</Node>
+				
+			</ObjectMapping>
+		</Step>
+		
+			<Step name="Update Deal Line Item Info in Salesforce.com"
+			number="3" input="record" output="record" returnOriginal="true" trackStatus="true">
+			<ObjectMapping name="ORDER_LINE_ITEM_SFDC_TO_UPDATE"
+				description="" objectReference="Line_Item__c" action="upsert" subAction="loadRecord"
+				processor="sfdcProcessor" alias="Deal Line Items" criteria="" attribute1="">
+			
+			<Node name="I_STRUCTURE" type="TABLES" subType="STRUCTURE" count="1">
+					
+					<Field sourceName="" destinationName="RecordTypeId" dataType="string"
+						format="" mandatory="Yes" defaultValue="012d0000000hA06" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="MATNR" destinationName="Item__c" dataType="lookup"
+						format="" mandatory="Yes" defaultValue="" referenceObject="Items__c" referenceField="SAP_Material_ID__c"
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="MATNR" destinationName="Material_Code__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="MAKTX" destinationName="Name_of_the_Material__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="THICK" destinationName="Thickness__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+
+					<Field sourceName="FINISH" destinationName="Finish__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+
+					<Field sourceName="DESIGN" destinationName="Design__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+
+					<Field sourceName="SIZE" destinationName="Size__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject="" referenceField=""
+						formula="" isExternalId="false" />
+
+					<Field sourceName="QUANTITY" destinationName="Pending_Quantity__c" dataType="number"
+						format="" mandatory="Yes" defaultValue="" referenceObject="" referenceField=""
+						formula="" isExternalId="false" />
+						
+					<Field sourceName="NACAL" destinationName="NACAL__c" dataType="number"
+						format="" mandatory="Yes" defaultValue="" referenceObject="" referenceField=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="VBELN" destinationName="Deal_Name__c" dataType="lookup"
+						format="" mandatory="Yes" defaultValue="" referenceObject="Deal__c" referenceField="DealName__c"
+						formula="" isExternalId="false" />
+
+					<Field sourceName="ORD_QTY" destinationName="Quantity_No_of_Sheets__c" dataType="number"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="NET_VALUE" destinationName="Total_Line_Amount_SAP__c" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+						
+					<Field sourceName="UNIT_PRICE" destinationName="Sales_Price__c" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+							
+					<Field sourceName="ITEM" destinationName="Line_Item_No__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<!-- Audit fields -->
+					<Field sourceName="DATE_LOW" destinationName="Date_Low__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="DATE_HIGH" destinationName="Date_High__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					<!--  -->
+					
+					<Field sourceName="Unique__c" destinationName="Unique__c" dataType="formula"
+						format="ITEM_VBELN" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="true" />
+				</Node>
+				
+			</ObjectMapping>
+		</Step>
+		<!-- 
+		<Step name="Convert the data into XML" number="4" input="record"
+			output="parameter" trackStatus="true">
+			<ObjectMapping name="ORDER_AS_XML"
+				description="The data has to be converted as XML" objectReference=""
+				action="export" subAction="loadParameter" processor="xmlProcessor"
+				alias="OrderXML" criteria="" attribute1="">
+			</ObjectMapping>
+		</Step>
+		 -->
+	</ConnectorMapping>
+		<ConnectorMapping name="ACCOUNT_UPDATE_IN_SFDC"
+		description="To create/update Accounts in Salesforce.com from SAP"
+		sequence="1" paramHandler="AccountParamHandler">
+		<Step name="Fetch Sales Office Information from Salesforce" number="1"
+			input="parameter" output="record">
+			<ObjectMapping name="EXPORT_SALES_OFFICE_FROM_SFDC"
+				description="Sales Office Information" objectReference="SalesOffice__c" action="export"
+				subAction="loadRecord" processor="sfdcProcessor" alias="Sales_Office"
+				criteria="" attribute1="">
+				<Node name="Sales_Office__c" type="TABLE">
+					<Field sourceName="Salesoffice_ID__c" destinationName="SALES_OFFICE" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						referenceField="" isUnique="" formula="" isExternalId="false" />
+					
+				</Node>
+			</ObjectMapping>
+		</Step>
+		<Step name="Fetch Account Data from SAP" number="2" input="record"
+			output="record">
+			<ObjectMapping name="FETCH_ACCOUNT_SAP"
+				description="Account Information" objectReference="ZSD_SF_CUSTOMER_DATE_DETAILS1"
+				action="export" subAction="loadRecord" processor="SAPCustomProcessor"
+				alias="Account" criteria="" attribute1="">
+				<Node name="INPUT" type="INPUT" subType="PARAMETER" count="1">
+					<Field sourceName="SALES_OFFICE" destinationName="SALES_OFFICE"
+						dataType="string" format="" mandatory="Yes" defaultValue=""
+						referenceObject="" formula="" isExternalId="false" />
+					<Field sourceName="DATE_HIGN" destinationName="DATE_HIGN"
+						dataType="string" format="" mandatory="Yes" defaultValue=""
+						referenceObject="" formula="" isExternalId="false" />
+					<Field sourceName="DATE_LOW" destinationName="DATE_LOW"
+						dataType="string" format="" mandatory="Yes" defaultValue=""
+						referenceObject="" formula="" isExternalId="false" />
+					
+				</Node>
+				<Node name="I_STRUCTURE" type="TABLES" subType="STRUCTURE" count="1">
+					
+					<Field sourceName="VTWEG" destinationName="VTWEG" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="VKBUR" destinationName="VKBUR" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="SPART" destinationName="SPART" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="ANRED" destinationName="ANRED" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="NAME1" destinationName="NAME1" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="STRAS" destinationName="STRAS" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="ORT01" destinationName="ORT01" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+
+					<Field sourceName="PSTLZ" destinationName="PSTLZ" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="LAND1" destinationName="LAND1" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="REGIO" destinationName="REGIO" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+
+					<Field sourceName="PCREDIT" destinationName="PCREDIT" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					<Field sourceName="DVCREDIT" destinationName="DVCREDIT" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="LCREDIT" destinationName="LCREDIT" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+
+					<Field sourceName="PLCREDIT" destinationName="PLCREDIT" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="BZIRK" destinationName="BZIRK" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="KUNNR" destinationName="KUNNR" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					 <Field sourceName="KUNNR" destinationName="LOOKUPUNIQUE" dataType="formula"
+						format="VKBUR_SPART" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+				</Node>
+				
+				
+			</ObjectMapping>
+		</Step>
+		<Step name="Update Account Info in Salesforce.com"
+			number="3" input="record" output="record" returnOriginal="true" trackStatus="true">
+			<ObjectMapping name="ACCOUNT_SFDC_TO_UPDATE"
+				description="" objectReference="Account" action="upsert" subAction="loadRecord"
+				processor="sfdcProcessor" alias="Accounts" criteria="" attribute1="" filterByUniqueField="KUNNR">
+				
+			<Node name="I_STRUCTURE" type="TABLES" subType="STRUCTURE" count="1">
+					
+					<Field sourceName="VKBUR" destinationName="Sales_Office__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+						
+					<Field sourceName="VKBUR" destinationName="SalesOffice__c" dataType="lookup"
+						format="" mandatory="Yes" defaultValue="" referenceObject="SalesOffice__c" referenceField="Salesoffice_ID__c"
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="STRAS" destinationName="BillingStreet" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+
+					<Field sourceName="ORT01" destinationName="BillingCity" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+
+					<Field sourceName="PSTLZ" destinationName="BillingPostalCode" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+
+					<Field sourceName="LAND1" destinationName="BillingCountry" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject="" referenceField=""
+						formula="" isExternalId="false" />
+
+
+					<Field sourceName="REGIO" destinationName="Region__c" dataType="lookup"
+						format="" mandatory="Yes" defaultValue="" referenceObject="Region__c" referenceField="Region_ID__c"
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="PCREDIT" destinationName="Ply_Credit__c" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject="" referenceField=""
+						formula="" isExternalId="false" />
+
+					<Field sourceName="DVCREDIT" destinationName="Decorative_Credit__c" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="LCREDIT" destinationName="Laminate_Credit__c" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="PLCREDIT" destinationName="Prelam_Credit__c" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+
+					<Field sourceName="BZIRK" destinationName="Territory_Code_Update__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="KUNNR" destinationName="SAP_Account_No__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="true" />
+					
+					<Field sourceName="ANRED" destinationName="Salutation__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+						
+					<Field sourceName="NAME1" destinationName="Name" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="" destinationName="RecordTypeId" dataType="string"
+						format="" mandatory="Yes" defaultValue="012d0000000h8GRAAY" referenceObject=""
+						formula="" isExternalId="false" />
+
+				</Node>
+				
+			</ObjectMapping>
+		</Step>
+		<Step name="Update LOB Account Detail Info in Salesforce.com"
+			number="3" input="record" output="record" returnOriginal="true" trackStatus="true">
+			<ObjectMapping name="LOB_ACCOUNT_SFDC_TO_UPDATE"
+				description="" objectReference="LOB_Account_Detail__c" action="upsert" subAction="loadRecord"
+				processor="sfdcProcessor" alias="LOBAccountDetail" criteria="" attribute1="">
+			<Node name="I_STRUCTURE" type="TABLES" subType="STRUCTURE" count="1">
+					
+					<Field sourceName="KUNNR" destinationName="Account__c" dataType="lookup"
+						format="" mandatory="Yes" defaultValue="" referenceObject="Account" referenceField="SAP_Account_No__c"
+						formula="" isExternalId="false" />
+						
+					<!--  created formula on LOB Account Detail instead-->
+					<!-- <Field sourceName="PCREDIT" destinationName="Credit__c" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+						 -->
+					
+					<Field sourceName="BZIRK" destinationName="Territory_Code__c"
+						dataType="string" format="" mandatory="Yes"
+						defaultValue="" referenceObject="" referenceField="" isUnique=""
+						formula="" isExternalId="false" />
+						
+					<Field sourceName="BZIRK" destinationName="Territory_Name__c"
+						dataType="lookup" format="" mandatory="Yes"
+						defaultValue="" referenceObject="Territory_Name__c" referenceField="Territory_Code__c" isUnique=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="SPART" destinationName="LOB__c"
+						dataType="string" format="" mandatory="Yes"
+						defaultValue="" referenceObject="" referenceField="" isUnique=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="Unique__c" destinationName="Unique__c"
+						dataType="formula" format="KUNNR_SPART" mandatory="Yes"
+						defaultValue="" referenceObject="" referenceField="" isUnique=""
+						formula="" isExternalId="true" />
+					
+			</Node>
+				
+			</ObjectMapping>
+		</Step>
+		<!-- 
+		<Step name="Convert the data into XML" number="4" input="record"
+			output="parameter" trackStatus="true">
+			<ObjectMapping name="ACCOUNT_AS_XML"
+				description="The data has to be converted as XML" objectReference=""
+				action="export" subAction="loadParameter" processor="xmlProcessor"
+				alias="AccountXML" criteria="" attribute1="">
+			</ObjectMapping>
+		</Step>
+		 -->
+	</ConnectorMapping>
+		<ConnectorMapping name="INCENTIVE_UPDATE_IN_SFDC"
+		description="To create/update Incentive Records in Salesforce.com from SAP"
+		sequence="1" paramHandler="IncentiveParamHandler">
+		<Step name="Fetch Sales Office/LOB Information from Salesforce" number="1"
+			input="parameter" output="record">
+			<ObjectMapping name="EXPORT_SALES_OFFICE_LOB_FROM_SFDC"
+				description="Sales Office/LOB Information" objectReference="SalesOffice__c" action="export"
+				subAction="loadRecord" processor="SFDCComboProcessor" alias="Sales_Office_LOB"
+				criteria="" attribute1="">
+				<Node name="Sales_Office__c" type="TABLE">
+					<Field sourceName="Salesoffice_ID__c" destinationName="SALESOFFICE" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						referenceField="" isUnique="" formula="" isExternalId="false" />
+					
+				</Node>
+			</ObjectMapping>
+		</Step>
+		<Step name="Fetch Incentive Data from SAP" number="2" input="record"
+			output="record">
+			<ObjectMapping name="FETCH_INCENTIVE_SAP"
+				description="Incentive Information" objectReference="ZSD_SF_INCENTIVE_SALESOFFICE1"
+				action="export" subAction="loadRecord" processor="SAPCustomProcessor"
+				alias="Incentive" criteria="" attribute1="">
+				<Node name="INPUT" type="INPUT" subType="PARAMETER" count="1">
+					<Field sourceName="SALESOFFICE" destinationName="SALESOFFICE"
+						dataType="string" format="" mandatory="Yes" defaultValue=""
+						referenceObject="" formula="" isExternalId="false" />
+					<Field sourceName="DATE_HIGH" destinationName="DATE_HIGH"
+						dataType="string" format="" mandatory="Yes" defaultValue=""
+						referenceObject="" formula="" isExternalId="false" />
+					<Field sourceName="DATE_LOW" destinationName="DATE_LOW"
+						dataType="string" format="" mandatory="Yes" defaultValue=""
+						referenceObject="" formula="" isExternalId="false" />
+					<Field sourceName="LOB" destinationName="LOB"
+						dataType="string" format="" mandatory="Yes" defaultValue=""
+						referenceObject="" formula="" isExternalId="false" />
+					<!-- <Field sourceName="RANK" destinationName="RANK"
+						dataType="string" format="" mandatory="Yes" defaultValue=""
+						referenceObject="" formula="" isExternalId="false" />
+						 -->
+				</Node>
+				<Node name="I_STRUCTURE" type="TABLES" subType="STRUCTURE" count="1">
+					
+					<Field sourceName="MANDT" destinationName="MANDT" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="VKBUR" destinationName="VKBUR" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="LOB" destinationName="LOB" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="SALES_EXE" destinationName="SALESEXE" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="RANK" destinationName="RANK" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="EMPNAME" destinationName="EMPNAME" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="MUST_DO_TARGET" destinationName="MUST_DO_TARGET" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+
+					<Field sourceName="ASP_TARGET" destinationName="ASP_TARGET" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="SALES_ACHIVED" destinationName="SALES_ACHIVED" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="SEVENTY_ODS" destinationName="SEVENTY_ODS" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+
+					<Field sourceName="CONDONEDOS" destinationName="CONDONEDOS" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					<Field sourceName="FINALOS" destinationName="FINALOS" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="SEVENTY_ODS_PER" destinationName="SEVENTY_ODS_PER" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+
+					<Field sourceName="PENALTY" destinationName="PENALTY" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="PAY_OUT" destinationName="PAY_OUT" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="FROM_DATE" destinationName="FROM_DATE" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					 <Field sourceName="MONTH" destinationName="MONTH" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					 
+					  <Field sourceName="YEAR" destinationName="YEAR" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					  
+					   <!-- <Field sourceName="YEAR" destinationName="LOOKUPUNIQUE" dataType="formula"
+						format="VKBUR_LOB" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" /> -->
+						
+						<!-- <Field sourceName="INCENTIVEUNIQUE" destinationName="INCENTIVEUNIQUE" dataType="formula"
+						format="VKBUR~LOB~MONTH~YEAR~SALES_EXE" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" /> --> 
+					
+				</Node>
+				
+				
+			</ObjectMapping>
+		</Step>
+		<Step name="Update Incentive Info in Salesforce.com"
+			number="3" input="record" output="record" returnOriginal="true" trackStatus="true">
+			<ObjectMapping name="INCENTIVE_SFDC_TO_UPDATE"
+				description="" objectReference="Incentives__c" action="upsert" subAction="loadRecord"
+				processor="sfdcProcessor" alias="Incentives" criteria="" attribute1="">
+				
+			<Node name="I_STRUCTURE" type="TABLES" subType="STRUCTURE" count="1">
+					
+					<Field sourceName="VKBUR" destinationName="Sales_Office__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+						
+					 
+					<Field sourceName="VKBUR" destinationName="SalesOffice__c" dataType="lookup"
+						format="" mandatory="Yes" defaultValue="" referenceObject="SalesOffice__c" referenceField="Salesoffice_ID__c"
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="LOB" destinationName="LOB__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="SALESEXE" destinationName="Sales_Exe_Code__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					 
+					 <Field sourceName="SALESEXE" destinationName="OwnerId" dataType="lookup"
+						format="" mandatory="Yes" defaultValue="" referenceObject="User" referenceField="Sales_Exe_Code__c"
+						formula="" isExternalId="false" />
+					 
+					 <Field sourceName="EMPNAME" destinationName="Employee_Name__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="RANK" destinationName="Rank__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject="" referenceField=""
+						formula="" isExternalId="false" />
+						
+					
+					<Field sourceName="MUST_DO_TARGET" destinationName="Target__c" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject="" referenceField=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="ASP_TARGET" destinationName="ASP_Target__c" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject="" referenceField=""
+						formula="" isExternalId="false" />
+
+					<Field sourceName="SALES_ACHIVED" destinationName="Sale_Achieved__c" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="SEVENTY_ODS" destinationName="Seventy_Ods__c" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="CONDONEDOS" destinationName="Condoned_O_S__c" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+
+					<Field sourceName="FINALOS" destinationName="Final_O_S__c" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="SEVENTY_ODS_PER" destinationName="Seventy_Ods_Per__c" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="PENALTY" destinationName="Penalty__c" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+						
+					<Field sourceName="PAY_OUT" destinationName="Incentive_Pay_Out__c" dataType="currency"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					<Field sourceName="MONTH" destinationName="Month__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					
+					  
+					<Field sourceName="YEAR" destinationName="Year__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="false" />
+					 
+					<Field sourceName="Unique__c" destinationName="Unique__c" dataType="formula"
+						format="VKBUR_LOB_MONTH_YEAR_SALESEXE" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="true" />
+						 
+					<!-- <Field sourceName="INCENTIVEUNIQUE" destinationName="Unique__c" dataType="string"
+						format="" mandatory="Yes" defaultValue="" referenceObject=""
+						formula="" isExternalId="true" /> -->
+						 
+						 
+						 
+
+				</Node>
+				
+			</ObjectMapping>
+		</Step>
+	
+		<!-- 
+		<Step name="Convert the data into XML" number="4" input="record"
+			output="parameter" trackStatus="true">
+			<ObjectMapping name="INCENTIVE_AS_XML"
+				description="The data has to be converted as XML" objectReference=""
+				action="export" subAction="loadParameter" processor="xmlProcessor"
+				alias="IncentiveXML" criteria="" attribute1="">
+			</ObjectMapping>
+		</Step>
+		 -->
+	</ConnectorMapping>
+</ConnectorConfiguration>

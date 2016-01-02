@@ -1,0 +1,52 @@
+<ConnectorConfiguration>
+	<ConnectorMapping name="CUSTOMER_UPDATE_IN_SALESFORCE" description="To create/update customer in Salesforce.com from SAP" sequence="1" paramHandler="">
+		<Step name="Fetch Account Information From SAP" number="1" input="parameter" output="record">
+			<ObjectMapping name="EXPORT_ACCOUNT_FROM_SAP" description="Retrieve Account Info from SAP" objectReference="ZCUST_MAST_CRM" action="export" subAction="loadRecord" processor="sapProcessor" alias="" criteria="" attribute1="">
+				<Node name="INPUT" type="INPUT" subType="PARAMETER" count="1">
+					<Field sourceName="F_TIME" destinationName="F_TIME" dataType="string" format="" mandatory="Yes" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="T_TIME" destinationName="T_TIME" dataType="string" format="" mandatory="Yes" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="FROM_DATE" destinationName="FROM_DATE" dataType="string" format="" mandatory="Yes" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="TO_DATE" destinationName="TO_DATE" dataType="string" format="" mandatory="Yes" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+				</Node>
+				<Node name="IT_CUST_CREAT" type="TABLES" subType="" count="1">
+					<Field sourceName="KUNNR" destinationName="KUNNR" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="BUKRS" destinationName="BUKRS" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="VKORG" destinationName="VKORG" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="VTWEG" destinationName="VTWEG" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="SPART" destinationName="SPART" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="KTOKD" destinationName="KTOKD" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="NAME1" destinationName="NAME1" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="TELF1" destinationName="TELF1" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="KNURL" destinationName="KNURL" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="TELFX" destinationName="TELFX" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="CP_NAME1" destinationName="CP_NAME1" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="ANRED" destinationName="ANRED" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="TELF2" destinationName="TELF2" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="STRAS" destinationName="STRAS" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="STR_SUPPL3" destinationName="STR_SUPPL3" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="LOCATION" destinationName="LOCATION" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="ORT01" destinationName="ORT01" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="PSTLZ" destinationName="PSTLZ" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="LAND1" destinationName="LAND1" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="REGIO" destinationName="REGIO" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="BZIRK" destinationName="BZIRK" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="VKBUR" destinationName="VKBUR" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="VKGRP" destinationName="VKGRP" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="WAERS" destinationName="WAERS" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="INCO1" destinationName="INCO1" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="KDGRP" destinationName="KDGRP" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="ZTERM" destinationName="ZTERM" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="J_1IEXCD" destinationName="J_1IEXCD" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="J_1IEXDI" destinationName="J_1IEXDI" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="J_1ICSTNO" destinationName="J_1ICSTNO" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="J_1IEXRN" destinationName="J_1IEXRN" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="J_1IEXCO" destinationName="J_1IEXCO" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="J_1ILSTNO" destinationName="J_1LSTNO" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="J_1IEXRG" destinationName="J_1IEXRG" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="J_1IEXCICU" destinationName="J_1IEXCICU" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+					<Field sourceName="J_1IPANNO" destinationName="J_1IPANNO" dataType="string" format="" mandatory="No" defaultValue="" referenceObject="" formula="" isExternalId="false"/>
+				</Node>
+			</ObjectMapping>
+		</Step>
+	</ConnectorMapping>
+</ConnectorConfiguration>
