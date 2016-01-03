@@ -1,0 +1,21 @@
+Steps For Development
+	1	Left Panel 									[Done]
+	2	Main Canvas									[25% Done]
+	3	Property Panel
+	4	Project Explore panel
+	5	DataStructure For Config File
+	6	Add/Edit Connector Mapping Page
+	7	Add/Edit Step Property Page
+	8	Add/Edit Salesforce Object
+	9	Add/Edit SAP Bapi
+	10	Add/Edit Processor
+	11	Add/Edit Object Mapping Page
+	12	Node Mapping Page
+	13	Adding Formula
+	14	Adding Param Handler
+	15	Generating XML
+	16	Importing XML
+	17	Saving Project
+	18	Loading Saved Project
+	19	Retrieving Salesforce Object
+	20	Retrieving SAP BAPI
