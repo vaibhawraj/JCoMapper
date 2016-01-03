@@ -4,18 +4,19 @@ Steps For Development
 	3	Property Panel
 	4	Project Explore panel
 	5	DataStructure For Config File
+	5.5	Generating XML							Release v0.1
 	6	Add/Edit Connector Mapping Page
 	7	Add/Edit Step Property Page
 	8	Add/Edit Salesforce Object
-	9	Add/Edit SAP Bapi
+	9	Add/Edit SAP Bapi						Release v0.2
 	10	Add/Edit Processor
-	11	Add/Edit Object Mapping Page
-	12	Node Mapping Page
-	13	Adding Formula
-	14	Adding Param Handler
-	15	Generating XML
-	16	Importing XML
+	11	Add/Edit Object Mapping Page			
+	12	Node Mapping Page						Release v0.3
+	13	Adding Formula							Release v0.4
+	14	Adding Param Handler					Release v0.5
+	15	Generating XML/Editing					Release v0.6
+	16	Importing XML							Release v0.7
 	17	Saving Project
-	18	Loading Saved Project
-	19	Retrieving Salesforce Object
-	20	Retrieving SAP BAPI
+	18	Loading Saved Project					Release v0.8
+	19	Retrieving Salesforce Object			Release v0.9
+	20	Retrieving SAP Bapi						Release v1.0
