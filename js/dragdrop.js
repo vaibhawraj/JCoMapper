@@ -21,10 +21,8 @@ var dragdrop = {init:function($){
 			hoverClass:"canvas_dropaccept",
 			drop:function(event,ui){
 				console.log(ui)
-				$(this).children("div").html(
-					$(this).children("div").html() +
-					ui.helper.html() + "<br>"
-					);
+				var item = $("<li class=\"item\">										<div class=\"sequence\">1</div>										<div class=\"item_content\">											<span style=\"width:100%;overflow:hidden;\">CUSTOMER_UPDATE_IN_SALESFORCE</span><br/>											<span style=\"color:rgb(0,255,0)\">ParamHandler</span>										</div>									</li>");
+				$(this).children("div").children("ul").eq(0).append(item);
 			}
 		});
 		$("#steps").droppable({
@@ -73,6 +71,7 @@ var dragdrop = {init:function($){
 		var ele = $("<div></div>");
 		ele.html($(this).html());
 		ele.addClass("draft_tool");
+		ele.addClass("draggable");
 		return ele;
 	}
 

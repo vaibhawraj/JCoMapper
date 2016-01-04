@@ -26,3 +26,6 @@
 	color:#AAAAAA;
 	cursor:default;
 }
+.draggable {
+	background: linear-gradient( #424242,#BABABA,#BABABA,#BABABA,#BABABA,#BABABA,#BABABA,#FFFFFF );
+}
