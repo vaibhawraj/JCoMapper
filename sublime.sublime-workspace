@@ -99,7 +99,7 @@
 			"file": "Steps For Development.txt",
 			"settings":
 			{
-				"buffer_size": 540,
+				"buffer_size": 748,
 				"line_ending": "Unix",
 				"name": "Steps For Development"
 			}
@@ -388,15 +388,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 540,
+						"buffer_size": 748,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								85,
-								85
+								472,
+								472
 							]
 						],
 						"settings":
