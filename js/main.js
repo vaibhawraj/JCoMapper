@@ -10,9 +10,11 @@
 		$("#tabs").tabs({heightStyle:"fill"});
 		$(window).resize(responsiveSize);
 		responsiveSize();
-		dragdrop.init($);
-		dialog.init($);
 		$("#xml_view").hide();
+		$("#leftPanel").show();
+		$("#design_view").show();
+		$("#overlay").fadeOut();
+		angular.element("body").scope().init();
 	});
 	function responsiveSize(){
 		$(".canvas").css("margin-left",$(".left_pane").outerWidth());

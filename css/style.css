@@ -55,4 +55,9 @@
 .dialogLabel {
 	display:inline-block;
 	width:30%;
+	margin-top:5px;
+	margin-bottom:5px;
+}
+.dialog input[type="text"] {
+	width:66%;
 }

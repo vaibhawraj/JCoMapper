@@ -15,6 +15,9 @@ var dragdrop = {init:function($){
 			helper:this.dummy,
 			scope:"draft_om"
 		});
+		$(".draft_cm").draggable("disable");	//By default, disable dragging
+		$(".draft_st").draggable("disable");	//By default, disable dragging
+		$(".draft_om").draggable("disable");	//By default, disable dragging
 		$("#connector_mappings").droppable({
 			scope:"draft_cm",
 			activeClass: "canvas_dropzone",

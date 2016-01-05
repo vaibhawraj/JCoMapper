@@ -1,18 +1,44 @@
 function JCOcntrler($scope){
-	$scope.errorMsg = "";
+	$scope.init = function(){
+		dragdrop.init($);
+		dialog.init($);
+		$scope.draggables.enable("draft_cm");
+		if(!$scope.$$phase){$scope.$apply();}
+	}
+	$scope.errorMsg = "";	//Error Message is used to append on dialog boxes
+	$scope.draggables = {
+		draft_cm : false,
+		draft_st : false,
+		draft_om : false,
+		enable : function(name) {
+			eval("$scope.draggables."+name + "=true");
+			$("."+name).draggable("enable");
+		}
+	};
+
 	$scope.CMrecords = function(){return CM;};
+	$scope.STrecords = function(){
+		//TODO : Only return those steps whose CM is selected
+	};
+	$scope.OMrecords = function(){
+		//TODO : Only return those object mapping whose ST is selected
+	};
+
 	$scope.CMdialog = function(){
 		$scope.errorMsg = "";
 		$("#newCMDialog").dialog("open");
 	};
-	$scope.CMDialogData = {
+
+	$scope.CMDialogData = {	//Field To Track and Validation Rules Specified
 		name : "",
 		description : "",
 		paramHandler : "",
 		validationRule : [
-			{condition : "that.name==''",errorMsg: "Required field missing [Name]"}
+			{condition : "that.name==''",errorMsg: "Required field missing [Name]"},
+			{condition : "that.name.split(' ').length!=1",errorMsg: "No space is allowed [Name]"}
 		]
 	};
+
 	$scope.addCMRecord = function(){
 		if(!$scope.validationRule($scope.CMDialogData)){
 			if(!$scope.$$phase) {
@@ -32,6 +58,7 @@ function JCOcntrler($scope){
 		}
 		return true;
 	};
+
 	$scope.validationRule = function(obj) {
 		var that=obj;
 		var result = true;
