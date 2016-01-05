@@ -52,3 +52,7 @@
 	padding:5px;
 }
 
+.dialogLabel {
+	display:inline-block;
+	width:30%;
+}

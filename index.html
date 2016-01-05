@@ -4,6 +4,7 @@
 		<link href="css/normalize.css" rel="stylesheet">
 		<link href="css/layout.css" rel="stylesheet">
 		<link href="lib/jquery-ui/jquery-ui.css" rel="stylesheet">
+		<link href="lib/codemirror/codemirror.css" rel="stylesheet">
 		<link href="css/style.css" rel="stylesheet">
 		<link href="css/leftpanel.css" rel="stylesheet">
 		<link href="css/canvas.css" rel="stylesheet">
@@ -11,13 +12,20 @@
 		<script src="lib/underscore/underscore.js"></script>
 		<script src="lib/jquery/jquery.js"></script>
 		<script src="lib/jquery-ui/jquery-ui.js"></script>
+		<script src="lib/angularjs/angular.min.js"></script>
+		<script src="lib/xml2json/xml2json.js"></script>
+		<script src="lib/codemirror/codemirror.js"></script>
+		<script src="lib/codemirror/mode/xml.js"></script>
 		<script src="js/metadata.js"></script>
 		<script src="js/standardObject.js"></script>
 	</head>
-	<body>
+	<body ng-app="jcoapp" ng-controller="JCOcntrler">
 		<div class="container">
 				<div class="header">
-					<h1 class="title">JCo Mapper</h1>
+					<h1 class="title">JCo Mapper {{name}}</h1>
+					<div>
+						<input type="button" ng-click="toggleView()" value="toggle View">
+					</div>
 				</div>
 				<div class="main">
 					<div class="left_pane">
@@ -87,22 +95,22 @@
 						</div>
 						
 					</div>
-					<div class="canvas">
+					<div class="canvas" id="design_view">
 						<div id="connector_mappings" class="canvas_panels">
 							<h3 class="canvas_panel_heading">Connector Mappings</h3>
 							<div class="canvas_panel_content">
 								<span class="verticalline"></span>
 								<ul class="items">
-									<li class="item">
-										<div class="sequence">1</div>
+									<li class="item" ng-repeat="mappings in CMrecords()">
+										<div class="sequence">{{mappings.attr.sequence}}</div>
 										<div class="item_content">
-											<span style="width:100%;overflow:hidden;">CUSTOMER_UPDATE_IN_SALESFORCE</span><br/>
-											<span style="color:rgb(0,255,0)">ParamHandler</span>
+											<span style="width:100%;overflow:hidden;">{{mappings.attr.name}}</span><br/>
+											<span style="color:rgb(0,255,0)">ParamHandler : {{mappings.attr.paramHandler}}</span>
 										</div>
 									</li>
 								</ul>
 								<ul class="items">
-									<li class="item dummy">Drag "Connector Mapping" Here</br>Double-Click to Add</li>
+									<li class="item dummy" ng-dblclick="CMdialog()" >Drag "Connector Mapping" Here</br>Double-Click to Add</li>
 								</ul>
 							</div>
 						</div>
@@ -115,33 +123,41 @@
 							<div class="canvas_panel_content"></div>
 						</div>
 					</div>
+					<div class="canvas" id="xml_view" style="display:-webkit-flex">
+						<div id="xmleditor" style="background:white;flex:1;margin:10px;padding:10px">
+							Hello World
+						</div>
+					</div>
 					<div class="right_pane"></div>
 				</div>
 		</div>
+		<section id="dialog_sections">
+			<div id="newCMDialog" title="New Connector Mapping">
+				<div style="color:red;word-wrap:break-word;width:100%;text-align:center;font-size:14px">{{errorMsg}}</div>
+				<form>
+					<fieldset>
+	      				<label for="name" class="dialogLabel">Name</label>
+					    <input type="text" name="name" ng-model="CMDialogData.name" value="" class="text ui-widget-content ui-corner-all"><br/>
+					    <label for="description" class="dialogLabel">Description</label>
+					    <input type="text" name="paramHandler" ng-model="CMDialogData.description" value="" class="text ui-widget-content ui-corner-all"><br/>
+					    <label for="paramHandler" class="dialogLabel">ParamHandler</label>
+					    <input type="text" name="paramHandler" ng-model="CMDialogData.paramHandler" value="" class="text ui-widget-content ui-corner-all">
+					 
+					      <!-- Allow form submission with keyboard without duplicating the dialog button -->
+					    <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+				    </fieldset>
+			    </form>
+			</div>
+		</section>
 	</body>
-	<script>
-	$(document).ready(function(){
-		$("#explorer  >div  > div").accordion({header:"h6",collapsible:true});
-		$("#draft  > div").accordion({header:"h6",collapsible:true});
-		$("#create  > div").accordion({header:"h6",collapsible:true});
-		$("#tabs").tabs({heightStyle:"fill"});
-		$(window).resize(responsiveSize);
-		responsiveSize();
-		dragdrop.init($);
-	});
-
-	function responsiveSize(){
-		$(".canvas").css("margin-left",$(".left_pane").outerWidth());
-		$(".canvas").css("width",$(document).width() - $(".left_pane").outerWidth());
-		$(".main").css("height",$(document).height()-100);
-		$("#tabs").tabs("refresh");
-		var sidemargin = ($(".canvas").width() - ($(".canvas_panels").width()+4)*3)/6;
-		$(".canvas_panels").css({
-			"margin-top":-($(".canvas_panels").height()/2),
-			"margin-left":sidemargin,
-			"margin-right":sidemargin
-		});
-	}
-	</script>
+	<script src="js/JCOcntrler.js"></script>
+	<script src="js/main.js"></script>
 	<script src="js/dragdrop.js"></script>
+	<script src="js/dialog.js"></script>
+	<script>
+		var myCodeMirror = CodeMirror($("#xmleditor")[0], {
+  			value: "function myScript(){return 100;}\n",
+  			mode:  "xml"
+		});
+	</script>
 </html>

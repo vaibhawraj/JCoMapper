@@ -20,9 +20,9 @@ var dragdrop = {init:function($){
 			activeClass: "canvas_dropzone",
 			hoverClass:"canvas_dropaccept",
 			drop:function(event,ui){
-				console.log(ui)
-				var item = $("<li class=\"item\">										<div class=\"sequence\">1</div>										<div class=\"item_content\">											<span style=\"width:100%;overflow:hidden;\">CUSTOMER_UPDATE_IN_SALESFORCE</span><br/>											<span style=\"color:rgb(0,255,0)\">ParamHandler</span>										</div>									</li>");
-				$(this).children("div").children("ul").eq(0).append(item);
+				/*var item = $("<li class=\"item\">										<div class=\"sequence\">1</div>										<div class=\"item_content\">											<span style=\"width:100%;overflow:hidden;\">CUSTOMER_UPDATE_IN_SALESFORCE</span><br/>											<span style=\"color:rgb(0,255,0)\">ParamHandler</span>										</div>									</li>");
+				$(this).children("div").children("ul").eq(0).append(item);*/
+				angular.element($(this)).scope().CMdialog();
 			}
 		});
 		$("#steps").droppable({

@@ -42,7 +42,7 @@ metadata.mObject = function(){
 			var newRec = {};
 			var that = this;
 			_.each(this.fieldList,function(name){
-				Object.defineProperty(newRec,name,{value : (_.property(name)(that)).defaultVal,enumerable:true});
+				Object.defineProperty(newRec,name,{value : (_.property(name)(that)).defaultVal,enumerable:true,writable:!((_.property(name)(that)).readOnly)});
 			});
 			return {id: this.objId + "x" + this.currentId, attr : newRec,child : [], parentId : null};
 		}
