@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 var dialog = {
 	init:function($){
 		this.CMDialog = $("#newCMDialog").dialog({
@@ -22,4 +23,23 @@ var dialog = {
 			}
 		});
 	$(".sortable").sortable({axis:"y"});
+=======
+var dialog = {init:function($){
+	$("#newCMDialog").dialog({
+		closeText: "",
+		autoOpen: false,
+		modal : true,
+		height:350,
+		width:350,
+		buttons : {
+			"Add" : function(){
+				if(angular.element("#connector_mappings").scope().addCMRecord()){
+					$("#newCMDialog").dialog("close");
+				}
+			},
+			"Cancel" : function(){$("#newCMDialog").dialog("close");}
+		}
+	});
+	$(".items").sortable();
+>>>>>>> 2014af251e8a5b93dbb3c66516f00ef936417796
 }};
