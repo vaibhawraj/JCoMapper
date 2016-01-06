@@ -1,5 +1,4 @@
 function JCOcntrler($scope){
-<<<<<<< HEAD
 	$scope.init = function(){
 		dragdrop.init($);
 		dialog.init($);
@@ -25,35 +24,21 @@ function JCOcntrler($scope){
 		//TODO : Only return those object mapping whose ST is selected
 	};
 
-=======
-	$scope.errorMsg = "";
-	$scope.CMrecords = function(){return CM;};
->>>>>>> 2014af251e8a5b93dbb3c66516f00ef936417796
 	$scope.CMdialog = function(){
 		$scope.errorMsg = "";
 		$("#newCMDialog").dialog("open");
 	};
-<<<<<<< HEAD
 
 	$scope.CMDialogData = {	//Field To Track and Validation Rules Specified
-=======
-	$scope.CMDialogData = {
->>>>>>> 2014af251e8a5b93dbb3c66516f00ef936417796
 		name : "",
 		description : "",
 		paramHandler : "",
 		validationRule : [
-<<<<<<< HEAD
 			{condition : "that.name==''",errorMsg: "Required field missing [Name]"},
 			{condition : "that.name.split(' ').length!=1",errorMsg: "No space is allowed [Name]"}
 		]
 	};
 
-=======
-			{condition : "that.name==''",errorMsg: "Required field missing [Name]"}
-		]
-	};
->>>>>>> 2014af251e8a5b93dbb3c66516f00ef936417796
 	$scope.addCMRecord = function(){
 		if(!$scope.validationRule($scope.CMDialogData)){
 			if(!$scope.$$phase) {
@@ -73,10 +58,7 @@ function JCOcntrler($scope){
 		}
 		return true;
 	};
-<<<<<<< HEAD
 
-=======
->>>>>>> 2014af251e8a5b93dbb3c66516f00ef936417796
 	$scope.validationRule = function(obj) {
 		var that=obj;
 		var result = true;

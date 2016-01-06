@@ -10,17 +10,11 @@
 		$("#tabs").tabs({heightStyle:"fill"});
 		$(window).resize(responsiveSize);
 		responsiveSize();
-<<<<<<< HEAD
 		$("#xml_view").hide();
 		$("#leftPanel").show();
 		$("#design_view").show();
 		$("#overlay").fadeOut();
 		angular.element("body").scope().init();
-=======
-		dragdrop.init($);
-		dialog.init($);
-		$("#xml_view").hide();
->>>>>>> 2014af251e8a5b93dbb3c66516f00ef936417796
 	});
 	function responsiveSize(){
 		$(".canvas").css("margin-left",$(".left_pane").outerWidth());
